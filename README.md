@@ -8,21 +8,21 @@
 
 ## Structure
 
-- Src
-├── block.c
-├── button.c
-├── game.c
-├── grid.c
-├── lcd.c
-├── main.c
-├── parameter.c
-├── scene.c
-├── stm32f1xx_hal_msp.c
-├── stm32f1xx_it.c
-├── syscalls.c
-├── sysmem.c
-├── system_stm32f1xx.c
-└── ui.c
+- Src  
+├── block.c  
+├── button.c  
+├── game.c  
+├── grid.c  
+├── lcd.c  
+├── main.c  
+├── parameter.c  
+├── scene.c  
+├── stm32f1xx_hal_msp.c  
+├── stm32f1xx_it.c  
+├── syscalls.c  
+├── sysmem.c  
+├── system_stm32f1xx.c  
+└── ui.c  
 
 ## Feature
 
