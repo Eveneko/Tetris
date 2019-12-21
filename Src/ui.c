@@ -1,5 +1,7 @@
 #include "ui.h"
 
+uint8_t pattern = 0;
+
 void draw_background()
 {
     POINT_COLOR = BLACK;
@@ -64,8 +66,28 @@ void draw_block(uint8_t x, uint8_t y, uint16_t color, uint8_t mode)
         ry = sub_origin_y + 2 * sub_height + font_size + 20 - (y+1) * cell_length;
     }
     POINT_COLOR = color;
-    LCD_DrawRectangle(rx, ry, rx + cell_length, ry + cell_length);
+    LCD_DrawRectangle(rx, ry, rx + cell_length - 1, ry + cell_length - 1);
     LCD_Fill(rx + 2, ry + 2, rx + (cell_length - 2), ry + (cell_length - 2), color);
+    if(color != WHITE){
+        POINT_COLOR = BLACK;
+    }
+    if(pattern == 1){
+        // bilibili
+        LCD_DrawRectangle(rx + 11, ry + 12, rx + 4, ry + 5);
+        LCD_DrawPoint(rx + 7, ry + 8);
+        LCD_DrawPoint(rx + 9, ry + 8);
+        LCD_DrawPoint(rx + 8, ry + 10);
+        LCD_DrawPoint(rx + 7, ry + 4);
+        LCD_DrawPoint(rx + 7, ry + 3);
+        LCD_DrawPoint(rx + 9, ry + 4);
+        LCD_DrawPoint(rx + 9, ry + 3);
+    }
+    if(pattern == 2){
+        // shadow
+        LCD_DrawPoint(rx + (cell_length - 2 - 1), ry + (cell_length - 2 - 1));
+        LCD_DrawLine(rx + (cell_length - 2 - 1), ry + (cell_length - 2 - 5), rx + (cell_length - 2 - 5), ry + (cell_length - 2 - 1));
+        LCD_DrawLine(rx + (cell_length - 2 - 1), ry + (cell_length - 2 - 7), rx + (cell_length - 2 - 7), ry + (cell_length - 2 - 1));
+    }
 }
 
 void grid_render()
@@ -117,6 +139,7 @@ void draw_main_block(uint8_t clear)
     {
         draw_block(it->x[block.rotation][i] +  block.x, it->y[block.rotation][i] + block.y, color, 0);
     }
+    // draw_main_grid();
 }
 
 void draw_next_block1(uint8_t clear)
@@ -148,6 +171,18 @@ void draw_name(char* name)
   LCD_ShowString(170, 210, 200, 16, 16, (uint8_t *)name);
 }
 
+void draw_main_grid()
+{
+    POINT_COLOR = LGRAY;
+    uint8_t i;
+    for(i = 1; i < 10; i++){
+        LCD_DrawLine(main_origin_x + i * cell_length, main_origin_y , main_origin_x + i * cell_length, main_origin_y + main_height);
+    }
+    for(i = 1; i < 20; i++){
+        LCD_DrawLine(main_origin_x, main_origin_y + i * cell_length, main_origin_x + main_width, main_origin_y + i * cell_length);
+    }
+}
+
 void update_score(uint16_t score)
 {
     char str_score[5];
@@ -163,9 +198,9 @@ void game_start()
 {
     LCD_Clear(WHITE);
     POINT_COLOR = RED;
-    LCD_ShowString(85, 60, 200, 24, 24, (uint8_t*) "Tetris");
+    LCD_ShowString(80, 60, 200, 24, 24, (uint8_t*) "Tetris");
     POINT_COLOR = BLACK;
-    LCD_ShowString(20, 160, 200, 16, 16, (uint8_t*) "Press any key to continue.");
+    LCD_ShowString(30, 160, 200, 16, 16, (uint8_t*) "Press any key to start.");
     while(1){
         HAL_Delay(21);
         if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {break;}
@@ -173,7 +208,78 @@ void game_start()
         if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
     }
     LCD_Clear(WHITE);
+    choose_pattern();
     game_reset();
+}
+
+void choose_pattern()
+{
+    LCD_ShowString(20, 40, 200, 16, 16, (uint8_t*) "Choose the block pattern:");
+    POINT_COLOR = LBBLUE;
+    LCD_ShowString(80, 100, 200, 24, 24, (uint8_t*) "Normal");
+    LCD_ShowString(70, 150, 200, 24, 24, (uint8_t*) "Bilibili");
+    LCD_ShowString(80, 200, 200, 24, 24, (uint8_t*) "Shadow");
+    POINT_COLOR = BLACK;
+    LCD_ShowString(10, 270, 240, 12, 12, (uint8_t*) "WK_UP: OK  |  KEY1: <-  |  KEY0: ->");
+    POINT_COLOR = YELLOW;
+    LCD_DrawRectangle(70, 100, 160, 124);
+    // LCD_DrawRectangle(60, 150, 170, 174);
+    // LCD_DrawRectangle(70, 200, 160, 224);
+    HAL_Delay(1000);
+    while(1){
+        HAL_Delay(200);
+        if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {
+            if(pattern == 1){
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(60, 150, 170, 174);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(70, 100, 160, 124);
+                pattern = 0;
+            }
+            else if(pattern == 2){
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(70, 200, 160, 224);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(60, 150, 170, 174);
+                pattern = 1;
+            }
+            else if(pattern == 0)
+            {
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(70, 100, 160, 124);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(70, 200, 160, 224);
+                pattern = 2;
+            }            
+            continue;
+        }
+        if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {
+            if(pattern == 0){
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(70, 100, 160, 124);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(60, 150, 170, 174);
+                pattern = 1;
+            }
+            else if(pattern == 1){
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(60, 150, 170, 174);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(70, 200, 160, 224);
+                pattern = 2;
+            }
+            else if(pattern == 2){
+                POINT_COLOR = WHITE;
+                LCD_DrawRectangle(70, 200, 160, 224);
+                POINT_COLOR = YELLOW;
+                LCD_DrawRectangle(70, 100, 160, 124);
+                pattern = 0;
+            }
+            continue;
+        }
+        if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
+    }
+    LCD_Clear(WHITE);
 }
 
 void game_over(uint16_t score)

@@ -59,4 +59,10 @@ void button_action() {
 			grid_quick_fall_down();
 		}
 	}
+	// if wk_up is pressed, red light will on
+	if (button_state[2]==0) {
+		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+	} else {
+		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+	}
 }

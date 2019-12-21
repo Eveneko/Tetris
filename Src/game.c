@@ -61,6 +61,7 @@ void grid_quick_fall_down() {
 }
 
 void grid_fall_down() {
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 	// if the grid can fall down
 	if(down_shift_check()){
 		draw_main_block(1);
@@ -72,6 +73,8 @@ void grid_fall_down() {
 		if(row_num){
 			score += row_num;
 			update_score(score);
+			// green light will on
+			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 			for (uint8_t i = 0; i < score; i++) {
 				accelerate_fall_speed();
 			}
@@ -89,7 +92,14 @@ void grid_fall_down() {
 			draw_next_block2(0);
 		} else{
 			// game over
-			// loading
+			for (uint8_t i = 0; i < 10; i++) {
+				HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+				HAL_Delay(100);
+				HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+				HAL_Delay(100);
+			}
 			game_over(score);
 		}
 	}
