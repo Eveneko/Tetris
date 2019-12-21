@@ -37,5 +37,7 @@ void draw_next_block1(uint8_t clear);
 void draw_next_block2(uint8_t clear);
 void draw_name(char* name);
 void update_score(uint16_t score);
+void game_start();
+void game_over(uint16_t score);
 
 #endif

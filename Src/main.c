@@ -94,7 +94,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  game_reset();
+  game_start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,19 +104,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  // char msg[30];
-	  // sprintf(msg, "timer: %d", (int) uwTick);
-	  // POINT_COLOR = RED;
-	  // LCD_ShowString(30, 40, 200, 24, 24, (uint8_t*) "Mini STM32 ^_^");
-	  // LCD_ShowString(30, 70, 200, 16, 16, (uint8_t*) msg);
-	  // POINT_COLOR = BLACK;
-	  // LCD_DrawRectangle(30, 150, 210, 190);
-	  // LCD_Fill(31, 151, 209, 189, YELLOW);
-	  // HAL_Delay(1000);
-    // draw_background();
-    // draw_block(0,0,0x0000,0);
-    // draw_block(0,0,0x0000,1);
-    // draw_block(0,0,0x0000,2);
 
     if(uwTick - button_task_stamp >= button_update_interval){
 			button_task_stamp = uwTick;

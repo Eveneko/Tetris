@@ -158,3 +158,40 @@ void update_score(uint16_t score)
     POINT_COLOR = BLACK;
     LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 160, screen_width, font_size, font_size, (uint8_t *)str_score);
 }
+
+void game_start()
+{
+    LCD_Clear(WHITE);
+    POINT_COLOR = RED;
+    LCD_ShowString(90, 60, 200, 24, 24, (uint8_t*) "Tetris");
+    POINT_COLOR = BLACK;
+    LCD_ShowString(20, 160, 200, 16, 16, (uint8_t*) "Press any key to continue.");
+    while(1){
+        HAL_Delay(21);
+        if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {break;}
+        if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {break;}
+        if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
+    }
+    LCD_Clear(WHITE);
+    game_reset();
+}
+
+void game_over(uint16_t score)
+{
+    LCD_Clear(WHITE);
+    POINT_COLOR = RED;
+    LCD_ShowString(60, 60, 200, 24, 24, (uint8_t*) "Game Over!");
+    char msg[30];
+    sprintf(msg, "Your score is %4d", score);
+    LCD_ShowString(40, 100, 200, 16, 16, (uint8_t*) msg);
+    POINT_COLOR = BLACK;
+    LCD_ShowString(20, 160, 200, 16, 16, (uint8_t*) "Press any key to continue.");
+    while(1){
+        HAL_Delay(21);
+        if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {break;}
+        if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {break;}
+        if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
+    }
+    LCD_Clear(WHITE);
+    game_reset();
+}
