@@ -38,6 +38,7 @@ void draw_next_block2(uint8_t clear);
 void draw_name(char* name);
 void draw_main_grid();
 void update_score(uint16_t score);
+void update_level();
 void game_start();
 void choose_pattern();
 void game_over(uint16_t score);

@@ -488,6 +488,9 @@ void LCD_DrawPoint(uint16_t x, uint16_t y) {
 //Draw a point with color(quicker)
 //x,y: coordinate
 void LCD_Fast_DrawPoint(uint16_t x, uint16_t y, uint16_t color) {
+	if(color == WHITE){
+		return;
+	}
 	if (lcddev.id == 0X9341 || lcddev.id == 0X5310) {
 		LCD_WR_REG(lcddev.setxcmd);
 		LCD_WR_DATA(x >> 8);
@@ -3003,6 +3006,30 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 		LCD_ShowChar(x, y, *p, size, 0);
 		x += size / 2;
 		p++;
+	}
+}
+
+// Xiao-Ming
+// draw back ground
+void LCD_ShowImage() {
+	uint16_t x;
+	uint16_t y;
+	uint32_t p = 0;
+	for (y=0;y<320;y++) {
+		for (x=0;x<240;x++) {
+			uint32_t data = tetris_bmp[p+1];
+			data=data<<8;
+			data=data+tetris_bmp[p];
+			p=p+2;
+			LCD_SetCursor(x, y);
+			LCD_WriteRAM_Prepare();
+			LCD_RS_SET;
+			LCD_CS_CLR;
+			DATAOUT(data);
+			LCD_WR_CLR;
+			LCD_WR_SET;
+			LCD_CS_SET;
+		}
 	}
 }
 

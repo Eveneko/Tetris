@@ -71,13 +71,14 @@ void grid_fall_down() {
 		flush_block();
 		uint8_t row_num = delete_full_lines();
 		if(row_num){
-			score += row_num;
+			score += row_num * row_num;
 			update_score(score);
 			// green light will on
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-			for (uint8_t i = 0; i < score; i++) {
+			for (uint8_t i = 0; i < row_num; i++) {
 				accelerate_fall_speed();
 			}
+			update_level();
 			grid_render();
 		}
 		// place new block

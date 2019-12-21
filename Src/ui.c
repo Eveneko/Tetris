@@ -12,6 +12,8 @@ void draw_background()
     LCD_ShowString(sub_origin_x, sub_origin_y + sub_height + 10, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "1st Next");
     LCD_DrawRectangle(sub_origin_x - 1, sub_origin_y + sub_height + font_size + 20 - 1, sub_origin_x + sub_width + 1, sub_origin_y + 2 * sub_height + font_size + 20 + 1);
     LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + font_size + 30, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "2nd Next");
+    LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 80, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "Level:");
+    LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 100, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "Easy1");
     LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 140, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "Score:");
     LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 160, screen_width, font_size, (uint8_t) font_size, (uint8_t *) "     0");
     
@@ -191,35 +193,69 @@ void update_score(uint16_t score)
     sprintf(str_score, "%6d", score);
     printf("score:%d str:%s\n", score, str_score);
     POINT_COLOR = BLACK;
+    LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 160, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 160 + font_size, WHITE);
     LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 160, screen_width, font_size, font_size, (uint8_t *)str_score);
+
+}
+
+void update_level()
+{
+    uint8_t level = (INIT_SPEED -  fall_down_interval) / STEP_SPEED;
+    char level_msg[32];
+    sprintf(level_msg, "%d", fall_down_interval);
+    LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 80, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 80 + font_size, WHITE);
+    LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 80, screen_width, font_size, font_size, (uint8_t *)level_msg);
+    if(level / 5 == 0){
+        sprintf(level_msg, "Easy%d", level%5+1);
+        LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 100, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 100 + font_size, WHITE);
+        LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 100, screen_width, font_size, font_size, (uint8_t *)level_msg);
+    }
+    else if(level / 5 == 1){
+        sprintf(level_msg, "Medium%d", level%5+1);
+        LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 100, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 100 + font_size, WHITE);
+        LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 100, screen_width, font_size, font_size, (uint8_t *)level_msg);
+    }
+    else if(level / 5 == 2){
+        sprintf(level_msg, "Hard%d", level%5+1);
+        LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 100, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 100 + font_size, WHITE);
+        LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 100, screen_width, font_size, font_size, (uint8_t *)level_msg);
+    }
+    else{
+        sprintf(level_msg, "NB");
+        LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 100, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 100 + font_size, WHITE);
+        LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 100, screen_width, font_size, font_size, (uint8_t *)level_msg);
+    }
 }
 
 void game_start()
 {
     LCD_Clear(WHITE);
-    POINT_COLOR = RED;
-    LCD_ShowString(80, 60, 200, 24, 24, (uint8_t*) "Tetris");
-    POINT_COLOR = BLACK;
-    LCD_ShowString(30, 160, 200, 16, 16, (uint8_t*) "Press any key to start.");
+    LCD_ShowImage();
+    POINT_COLOR = LGRAYBLUE;
+    LCD_Fill(30, 230, 210, 246, BLACK);
+    LCD_ShowString(30, 230, 210, 16, 16, (uint8_t*) "Press any key to start.");
     while(1){
         HAL_Delay(21);
         if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {break;}
         if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {break;}
         if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
     }
-    LCD_Clear(WHITE);
+    // LCD_Clear(WHITE);
     choose_pattern();
     game_reset();
 }
 
 void choose_pattern()
 {
+    LCD_Clear(BLACK);
+    // LCD_Fill(0, 0, screen_width, screen_height, BLACK);
+    POINT_COLOR = LGRAYBLUE;
     LCD_ShowString(20, 40, 200, 16, 16, (uint8_t*) "Choose the block pattern:");
-    POINT_COLOR = LBBLUE;
+    POINT_COLOR = LGRAY;
     LCD_ShowString(80, 100, 200, 24, 24, (uint8_t*) "Normal");
     LCD_ShowString(70, 150, 200, 24, 24, (uint8_t*) "Bilibili");
     LCD_ShowString(80, 200, 200, 24, 24, (uint8_t*) "Shadow");
-    POINT_COLOR = BLACK;
+    POINT_COLOR = LGRAYBLUE;
     LCD_ShowString(10, 270, 240, 12, 12, (uint8_t*) "WK_UP: OK  |  KEY1: <-  |  KEY0: ->");
     POINT_COLOR = YELLOW;
     LCD_DrawRectangle(70, 100, 160, 124);
@@ -230,14 +266,14 @@ void choose_pattern()
         HAL_Delay(200);
         if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {
             if(pattern == 1){
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(60, 150, 170, 174);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(70, 100, 160, 124);
                 pattern = 0;
             }
             else if(pattern == 2){
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(70, 200, 160, 224);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(60, 150, 170, 174);
@@ -245,7 +281,7 @@ void choose_pattern()
             }
             else if(pattern == 0)
             {
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(70, 100, 160, 124);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(70, 200, 160, 224);
@@ -255,21 +291,21 @@ void choose_pattern()
         }
         if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {
             if(pattern == 0){
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(70, 100, 160, 124);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(60, 150, 170, 174);
                 pattern = 1;
             }
             else if(pattern == 1){
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(60, 150, 170, 174);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(70, 200, 160, 224);
                 pattern = 2;
             }
             else if(pattern == 2){
-                POINT_COLOR = WHITE;
+                POINT_COLOR = BLACK;
                 LCD_DrawRectangle(70, 200, 160, 224);
                 POINT_COLOR = YELLOW;
                 LCD_DrawRectangle(70, 100, 160, 124);
@@ -284,13 +320,14 @@ void choose_pattern()
 
 void game_over(uint16_t score)
 {
-    LCD_Clear(WHITE);
+    LCD_Clear(BLACK);
+    // LCD_ShowImage();
     POINT_COLOR = RED;
     LCD_ShowString(60, 60, 200, 24, 24, (uint8_t*) "Game Over!");
     char msg[30];
     sprintf(msg, "Your score is %4d", score);
     LCD_ShowString(40, 100, 200, 16, 16, (uint8_t*) msg);
-    POINT_COLOR = BLACK;
+    POINT_COLOR = LGRAY;
     LCD_ShowString(20, 160, 200, 16, 16, (uint8_t*) "Press any key to continue.");
     while(1){
         HAL_Delay(21);

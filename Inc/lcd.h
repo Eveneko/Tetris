@@ -2,6 +2,8 @@
 #define __LCD_H		
 #include "main.h"
 #include "stdlib.h"
+#include "bmp_background.h"
+
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //ALIENTEK MiniSTM32F103开发板
@@ -205,6 +207,7 @@ void LCD_WriteRAM(uint16_t RGB_Code);
 void LCD_Scan_Dir(uint8_t dir); // Set the scan direction
 void LCD_Display_Dir(uint8_t dir); // Set the display direction
 void LCD_Set_Window(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height);
+void LCD_ShowImage();
 
 //写数据函数
 #define LCD_WR_DATA(data){\
