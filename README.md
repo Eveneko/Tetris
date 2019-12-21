@@ -10,6 +10,7 @@
 
 - Src  
 ├── block.c  
+├── bmp_background.c  
 ├── button.c  
 ├── game.c  
 ├── grid.c  
@@ -26,13 +27,15 @@
 
 ## Feature
 
-- Draw at least 7 types of blocks with different colors.
-- Rotate and move the blocks left and right by keys.
-- A line desappears when the whole lines are all filled.
-- Show the scores and at least 2 blocks will soon drop.
-- At least 3 rounds, for the blocks drops faster when level up
-- Effects of interface and operating.
-- Key combinations control Tetris behavior.
+- Draw at least 7 types of blocks with different colors;
+- Rotate and move the blocks left and right by keys;
+- A line desappears when the whole lines are all filled;
+- Show the scores and at least 2 blocks will soon drop;
+- At least 3 rounds, for the blocks drops faster when level up;
+- Effects of interface and operating;
+- Key combinations control Tetris behavior;
+- Nice backgroud;
+- block pattern choose.
 
 ## Run
 
@@ -45,8 +48,10 @@
 ## Test
 
 - Game start  
-  ![gamestart](./images/gamestart.jpg)
+  ![gamestart](./images/gamestart.jpg)  
+- Bloack pattern choose
+  ![pattern](./images/pattern.jpg)  
 - Gaming  
-  ![gaming](./images/gaming.jpg)
+  ![gaming](./images/gaming.jpg)  
 - Game over  
-  ![gameover](./images/gameover.jpg)
+  ![gameover](./images/gameover.jpg)  
