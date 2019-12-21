@@ -163,7 +163,7 @@ void game_start()
 {
     LCD_Clear(WHITE);
     POINT_COLOR = RED;
-    LCD_ShowString(90, 60, 200, 24, 24, (uint8_t*) "Tetris");
+    LCD_ShowString(85, 60, 200, 24, 24, (uint8_t*) "Tetris");
     POINT_COLOR = BLACK;
     LCD_ShowString(20, 160, 200, 16, 16, (uint8_t*) "Press any key to continue.");
     while(1){
