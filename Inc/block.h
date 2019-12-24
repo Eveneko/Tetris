@@ -7,6 +7,7 @@
 #include "scene.h"
 #include "parameter.h"
 #include "ui.h"
+#include<time.h>
 
 typedef struct{
     uint8_t x[4][4];

@@ -5,6 +5,8 @@ block_config block_next1;
 block_config block_next2;
 shapes shape_list[SHAPE_NUM];
 
+extern uint32_t uwTick;
+
 uint8_t left_shift_check() {
 	int8_t a, b;
 	uint8_t i;
@@ -76,6 +78,7 @@ void flush_block(){
 void block_reset() {
     block = block_next1;
     block_next1 = block_next2;
+    srand(uwTick*rand());
     block_next2 = (block_config){
         .x = 3, .y = GRID_HEIGHT-4,
         .shape = rand()%SHAPE_NUM,
@@ -84,7 +87,7 @@ void block_reset() {
 }
 
 void block_init() {
-    srand(rand());
+    srand(uwTick*rand());
     uint8_t i;
     for(i = 0; i < 3; i++){
       block_reset();

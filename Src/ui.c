@@ -202,9 +202,6 @@ void update_level()
 {
     uint8_t level = (INIT_SPEED -  fall_down_interval) / STEP_SPEED;
     char level_msg[32];
-    sprintf(level_msg, "%d", fall_down_interval);
-    LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 80, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 80 + font_size, WHITE);
-    LCD_ShowString(sub_origin_x, sub_origin_y + 2 * sub_height + 80, screen_width, font_size, font_size, (uint8_t *)level_msg);
     if(level / 5 == 0){
         sprintf(level_msg, "Easy%d", level%5+1);
         LCD_Fill(sub_origin_x, sub_origin_y + 2 * sub_height + 100, sub_origin_x + screen_width, sub_origin_y + 2 * sub_height + 100 + font_size, WHITE);
@@ -320,6 +317,17 @@ void choose_pattern()
 
 void game_over(uint16_t score)
 {
+    POINT_COLOR = BRRED;
+    LCD_ShowString(10, 100, 200, 24, 24, (uint8_t*) "Stackoverflow!");
+    uint8_t i;
+    for(i = 0; i < 10; i++){
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+        HAL_Delay(100);
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+        HAL_Delay(100);
+    }
     LCD_Clear(BLACK);
     // LCD_ShowImage();
     POINT_COLOR = RED;
@@ -334,6 +342,13 @@ void game_over(uint16_t score)
         if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) != GPIO_PIN_SET) {break;}
         if (HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) != GPIO_PIN_SET) {break;}
         if (HAL_GPIO_ReadPin(WK_UP_GPIO_Port, WK_UP_Pin) != GPIO_PIN_RESET) {break;}
+        // bling
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+        HAL_Delay(100);
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+        HAL_Delay(100);
     }
     LCD_Clear(WHITE);
     game_reset();
