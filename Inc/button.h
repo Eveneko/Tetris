@@ -4,8 +4,6 @@
 #include "block.h"
 #include "game.h"
 #include "grid.h"
-#include "scene.h"
-#include "parameter.h"
 #include "ui.h"
 #include "main.h"
 
@@ -16,5 +14,7 @@ extern uint32_t button_task_stamp;
 
 void button_init();
 void button_update();
+void button_action();
+extern uint32_t uwTick;
 
 #endif

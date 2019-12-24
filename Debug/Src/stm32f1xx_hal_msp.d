@@ -19,7 +19,9 @@ Src/stm32f1xx_hal_msp.o: ../Src/stm32f1xx_hal_msp.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h ../Inc/lcd.h \
+ ../Inc/main.h ../Inc/bmp_background.h ../Inc/grid.h ../Inc/block.h \
+ ../Inc/button.h ../Inc/game.h ../Inc/ui.h
 
 ../Inc/main.h:
 
@@ -64,3 +66,19 @@ Src/stm32f1xx_hal_msp.o: ../Src/stm32f1xx_hal_msp.c ../Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
+
+../Inc/lcd.h:
+
+../Inc/main.h:
+
+../Inc/bmp_background.h:
+
+../Inc/grid.h:
+
+../Inc/block.h:
+
+../Inc/button.h:
+
+../Inc/game.h:
+
+../Inc/ui.h:

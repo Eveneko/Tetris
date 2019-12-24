@@ -4,8 +4,6 @@
 #include "button.h"
 #include "game.h"
 #include "grid.h"
-#include "scene.h"
-#include "parameter.h"
 #include "ui.h"
 #include<time.h>
 

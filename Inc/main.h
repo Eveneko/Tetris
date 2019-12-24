@@ -37,14 +37,12 @@ extern "C" {
 #include "block.h"
 #include "button.h"
 #include "game.h"
-#include "scene.h"
-#include "parameter.h"
 #include "ui.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+extern uint32_t uwTick;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

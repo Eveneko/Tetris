@@ -1,0 +1,17 @@
+ui.c:5:6:draw_background	16	static
+ui.c:29:6:fill_main_background	24	static
+ui.c:34:6:fill_sub_background	24	static
+ui.c:40:6:fill_all_white	8	static
+ui.c:52:6:draw_block	40	static
+ui.c:95:6:grid_render	16	static
+ui.c:118:6:sub_grid_render	24	static
+ui.c:134:6:draw_main_block	24	static
+ui.c:147:6:draw_next_block1	24	static
+ui.c:159:6:draw_next_block2	24	static
+ui.c:171:6:draw_name	24	static
+ui.c:176:6:draw_main_grid	16	static
+ui.c:188:6:update_score	32	static
+ui.c:201:6:update_level	56	static
+ui.c:227:6:game_start	16	static
+ui.c:245:6:choose_pattern	16	static
+ui.c:318:6:game_over	56	static

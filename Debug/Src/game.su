@@ -1,0 +1,10 @@
+game.c:7:6:game_update	8	static
+game.c:15:6:grid_move_left	8	static
+game.c:23:6:grid_move_right	8	static
+game.c:31:6:reset_grid_fall_speed	4	static
+game.c:35:6:accelerate_fall_speed	4	static
+game.c:41:6:grid_rotation	8	static
+game.c:49:9:game_fail_check	24	static
+game.c:61:6:grid_quick_fall_down	8	static
+game.c:71:6:grid_fall_down	16	static
+game.c:109:6:game_reset	8	static

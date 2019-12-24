@@ -4,8 +4,6 @@
 #include "block.h"
 #include "button.h"
 #include "grid.h"
-#include "scene.h"
-#include "parameter.h"
 #include "ui.h"
 
 #define INIT_SPEED 500
@@ -23,5 +21,7 @@ uint8_t game_fail_check();
 void grid_quick_fall_down();
 void grid_fall_down();
 void game_reset();
+void game_update();
+extern uint32_t uwTick;
 
 #endif

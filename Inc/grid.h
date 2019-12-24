@@ -4,8 +4,6 @@
 #include "block.h"
 #include "button.h"
 #include "game.h"
-#include "scene.h"
-#include "parameter.h"
 #include "ui.h"
 
 #define GRID_WIDTH 10

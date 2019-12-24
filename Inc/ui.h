@@ -5,8 +5,6 @@
 #include "button.h"
 #include "game.h"
 #include "grid.h"
-#include "scene.h"
-#include "parameter.h"
 
 #define screen_height 320
 #define screen_width 240

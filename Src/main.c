@@ -48,7 +48,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern uint32_t uwTick;
+
 
 /* USER CODE END PV */
 
@@ -105,15 +105,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    if(uwTick - button_task_stamp >= button_update_interval){
-			button_task_stamp = uwTick;
-			button_update();
-		}
-		if(uwTick - fall_task_stamp >= fall_down_interval){
-			fall_task_stamp = uwTick;
-			grid_fall_down();
-		}
-
+    button_update();
+    game_update();
   }
   /* USER CODE END 3 */
 }

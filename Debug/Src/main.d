@@ -20,7 +20,8 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h ../Inc/lcd.h \
- ../Inc/main.h
+ ../Inc/main.h ../Inc/bmp_background.h ../Inc/grid.h ../Inc/block.h \
+ ../Inc/button.h ../Inc/game.h ../Inc/ui.h ../Inc/lcd.h ../Inc/ui.h
 
 ../Inc/main.h:
 
@@ -69,3 +70,19 @@ Src/main.o: ../Src/main.c ../Inc/main.h \
 ../Inc/lcd.h:
 
 ../Inc/main.h:
+
+../Inc/bmp_background.h:
+
+../Inc/grid.h:
+
+../Inc/block.h:
+
+../Inc/button.h:
+
+../Inc/game.h:
+
+../Inc/ui.h:
+
+../Inc/lcd.h:
+
+../Inc/ui.h:

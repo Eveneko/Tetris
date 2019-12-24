@@ -14,8 +14,15 @@ void button_init() {
 	button_task_stamp = 0;
 }
 
-
 void button_update() {
+	if(uwTick - button_task_stamp >= button_update_interval){
+		button_task_stamp = uwTick;
+		read_button();
+	}
+}
+
+
+void read_button() {
 	for(uint8_t i=0; i<BUTTON_NUM; i++){
 		button_prev_state[i]=button_state[i];
 	}
@@ -41,7 +48,7 @@ void button_update() {
 }
 
 void button_action() {
-	if (button_state[0]==1 && button_prev_state[0]==0) {
+	if (button_state[0]==0 && button_prev_state[0]==1) {
 		if (button_prev_state[2]==0) {
 			// left shift
 			grid_move_left();
@@ -50,7 +57,7 @@ void button_action() {
 			grid_rotation();
 		}
 	}
-	if (button_state[1]==1 && button_prev_state[1]==0) {
+	if (button_state[1]==0 && button_prev_state[1]==1) {
 		if (button_prev_state[2]==0) {
 			// right shift
 			grid_move_right();

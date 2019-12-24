@@ -4,6 +4,14 @@ uint16_t score;
 uint32_t fall_down_interval; // time gap to fall down
 uint32_t fall_task_stamp = 0;
 
+void game_update() {
+	if(uwTick - fall_task_stamp >= fall_down_interval){
+		fall_task_stamp = uwTick;
+		grid_fall_down();
+	}
+}
+
+
 void grid_move_left(){
 	if(left_shift_check()){
 		draw_main_block(1);

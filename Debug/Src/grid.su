@@ -1,0 +1,4 @@
+grid.c:7:9:delete_full_lines	16	static
+grid.c:27:6:clear_row	32	static
+grid.c:40:6:grid_init	16	static
+grid.c:49:6:sub_grid_init	16	static
