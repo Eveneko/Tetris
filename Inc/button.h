@@ -8,7 +8,7 @@
 #include "main.h"
 
 #define BUTTON_NUM 3
-
+#define BUTTON_BUFFER_SIZE 4
 extern uint32_t button_update_interval; // time gap to update button
 extern uint32_t button_task_stamp;
 

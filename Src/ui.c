@@ -139,7 +139,7 @@ void draw_main_block(uint8_t clear)
     if(clear){color = WHITE;}
     for(i = 0; i < 4; i++)
     {
-        draw_block(it->x[block.rotation][i] +  block.x, it->y[block.rotation][i] + block.y, color, 0);
+        draw_block(it->x[block.direction][i] +  block.x, it->y[block.direction][i] + block.y, color, 0);
     }
     // draw_main_grid();
 }
@@ -152,7 +152,7 @@ void draw_next_block1(uint8_t clear)
     if(clear){color = WHITE;}
     for(i = 0; i < 4; i++)
 	{
-	    draw_block(it->x[block_next1.rotation][i], it->y[block_next1.rotation][i], color, 1);
+	    draw_block(it->x[block_next1.direction][i], it->y[block_next1.direction][i], color, 1);
 	}
 }
 
@@ -164,7 +164,7 @@ void draw_next_block2(uint8_t clear)
     if(clear){color = WHITE;}
     for(i = 0; i < 4; i++)
 	{
-	    draw_block(it->x[block_next2.rotation][i], it->y[block_next2.rotation][i], color, 2);
+	    draw_block(it->x[block_next2.direction][i], it->y[block_next2.direction][i], color, 2);
 	}
 }
 

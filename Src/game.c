@@ -2,6 +2,7 @@
 
 uint16_t score;
 uint32_t fall_down_interval; // time gap to fall down
+
 uint32_t fall_task_stamp = 0;
 
 void game_update() {
@@ -41,20 +42,13 @@ void accelerate_fall_speed() {
 void grid_rotation(){
 	if(rotation_check()){
 		draw_main_block(1);
-		block.rotation = (block.rotation + 1)%4;
+		block.direction = (block.direction + 1)%4;
 		draw_main_block(0);
 	}
 }
 
 uint8_t game_fail_check() {
-	int8_t a, b;
-	uint8_t i;
-	shapes* it = &shape_list[block.shape];
-	for(i = 0; i < 4; i++) {
-		a = it->x[block.rotation][i]+block.x;
-		b = it->y[block.rotation][i]+block.y;
-		if(!grid[b][a].isEmpty) {return 1;}
-	}
+	if (intersection_check()){return 1;}
 	return 0;
 }
 
@@ -76,7 +70,7 @@ void grid_fall_down() {
 		block.y -= 1;
 		draw_main_block(0);
 	} else {
-		flush_block();
+		set_block_static();
 		uint8_t row_num = delete_full_lines();
 		if(row_num){
 			score += row_num * row_num;

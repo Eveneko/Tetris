@@ -1,7 +1,9 @@
 block.c:10:9:left_shift_check	24	static
-block.c:26:9:right_shift_check	24	static
-block.c:39:9:down_shift_check	24	static
-block.c:52:9:rotation_check	24	static
-block.c:66:6:flush_block	24	static
-block.c:78:6:block_reset	16	static
-block.c:89:6:block_init	32	static
+block.c:27:9:right_shift_check	24	static
+block.c:44:9:down_shift_check	24	static
+block.c:61:9:rotation_check	24	static
+block.c:78:9:intersection_check	24	static
+block.c:96:9:cell_occupation_check	16	static
+block.c:101:6:set_block_static	24	static
+block.c:115:6:block_reset	16	static
+block.c:126:6:block_init	16	static

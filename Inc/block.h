@@ -8,16 +8,17 @@
 #include<time.h>
 
 typedef struct{
-    uint8_t x[4][4];
-    uint8_t y[4][4];
+    uint8_t x[4][16];
+    uint8_t y[4][16];
     uint16_t color;
+	uint8_t cell_num;
 } shapes;
 
 typedef struct{
 	int8_t x;
 	int8_t y;
 	uint8_t shape;
-	uint8_t rotation;
+	uint8_t direction;
 } block_config;
 
 
@@ -39,7 +40,10 @@ uint8_t left_shift_check(void);
 uint8_t right_shift_check(void);
 uint8_t down_shift_check(void);
 uint8_t rotation_check(void);
-void flush_block(void);
+uint8_t intersection_check(void);
+uint8_t cell_occupation_check(int8_t x, int8_t y);
+
+void set_block_static(void);
 void block_reset(void);
 void block_init(void);
 
